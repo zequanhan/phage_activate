@@ -6,6 +6,17 @@ This project involves genomic analysis for phage activation. It includes scripts
 
 ## Installation
 
+### Create a Python Environment
+To create a new Python environment named `Phage_design` and install the necessary packages, follow these steps:
+
+```sh
+# Create a new conda environment
+conda create -n Phage_design python=3.9
+
+# Activate the environment
+conda activate Phage_design
+```
+
 ### Install Python Dependencies
 To install the necessary Python dependencies, run:
 
@@ -47,6 +58,12 @@ sudo yum install epel-release
 sudo yum install emboss
 ```
 
+After downloading Needle, move it to `/usr/bin/`:
+
+```sh
+sudo mv needle /usr/bin/
+```
+
 #### Installing BLASTP
 To install BLASTP, follow these steps:
 
@@ -58,4 +75,16 @@ cd ncbi-blast-2.11.0+
 
 # Add BLAST+ to PATH
 export PATH=$PATH:$PWD/bin
+```
+
+## Usage
+
+To run the phage activation analysis, use the following command:
+
+```sh
+python phage_design.py -gbk_path <path_to_gbk_file> -output_dir <output_directory>
+```
+## Example
+```sh
+python phage_design.py -gbk_path test_data/KX897981.gbk -output_dir test_data/
 ```
