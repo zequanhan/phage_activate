@@ -76,7 +76,18 @@ cd ncbi-blast-2.11.0+
 # Add BLAST+ to PATH
 export PATH=$PATH:$PWD/bin
 ```
+#### Installing CD-HIT
+```sh
+# Download CD-HIT
+wget https://github.com/weizhongli/cdhit/releases/download/V4.8.1/cd-hit-v4.8.1-2019-0228.tar.gz
+tar -zxvf cd-hit-v4.8.1-2019-0228.tar.gz
+cd cd-hit-v4.8.1-2019-0228
 
+# Compile and install
+make
+sudo cp cd-hit /usr/local/bin
+sudo cp cd-hit-est /usr/local/bin
+```
 ## Usage
 
 To run the phage activation analysis, use the following command:
