@@ -76,6 +76,18 @@ cd ncbi-blast-2.11.0+
 # Add BLAST+ to PATH
 export PATH=$PATH:$PWD/bin
 ```
+#### Installing Prokka
+Prokka is a software tool for the rapid annotation of prokaryotic genomes.
+
+To install Prokka, follow these steps:
+
+1. **Using Conda (recommended)**
+
+   If you have Conda installed, you can easily install Prokka using the Bioconda channel:
+
+   ```sh
+   conda install -c conda-forge -c bioconda prokka
+   ```
 #### Installing CD-HIT
 ```sh
 # Download CD-HIT
