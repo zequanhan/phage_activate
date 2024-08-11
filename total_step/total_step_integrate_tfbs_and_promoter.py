@@ -415,7 +415,7 @@ class GenomeAnalyzer:
         protein_names = [
             'repressor', 'transcriptional regulator', 'immunity repressor',
             'transcriptional repressor', 'Cro/CI family transcriptional regulator',
-            'Hxr', 'CI protein', 'CII-like transcriptional activator'
+            'Hxr', 'CI protein', 'CII-like transcriptional activator','Repressor-like immunity protein'
         ]
 
         # 获取脚本当前所在的目录和上级目录
