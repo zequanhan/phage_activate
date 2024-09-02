@@ -69,7 +69,7 @@ To install BLASTP, follow these steps:
 
 ```sh
 # Download BLAST+
-wget ftp://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/LATEST/ncbi-blast-2.11.0+-x64-linux.tar.gz
+wget https://ftp.ncbi.nlm.nih.gov/blast/executables/blast+/2.11.0/ncbi-blast-2.11.0+-x64-linux.tar.gz
 tar -zxvf ncbi-blast-2.11.0+-x64-linux.tar.gz
 cd ncbi-blast-2.11.0+
 
