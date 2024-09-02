@@ -328,8 +328,23 @@ class GenomeAnalyzer:
     #     df_promoters = pd.DataFrame(data)
     #     self.results[key] = df_promoters
 ## 启动子长度限制最少28
-    def extract_promoters(self, key, dp_prom_path="/home/hanzequan/DPProm/DPProm/"):
+    def extract_promoters(self, key):
+        # 获取当前脚本所在的目录
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # 构建 DPProm 目录的绝对路径
+        dp_prom_path = os.path.join(script_dir, "../DPProm")
+
+        # 将路径转换为绝对路径
+        dp_prom_path = os.path.abspath(dp_prom_path)
+        dp_prom_path = dp_prom_path+'/' ## 添加’/‘.2024.9.2
+        # 打印路径以进行调试（可选）
+        #print(f"Using DPProm path: {dp_prom_path}")
+       
+        # 调用 genome_predict 函数
         seqs, headers = DPProm_main.genome_predict(dp_prom_path, self.gbk_path, self.fasta_path)
+       
+        # 其他代码保持不变
         data = []
         for i, header in enumerate(headers):
             parts = header.split()
