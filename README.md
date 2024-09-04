@@ -1,5 +1,6 @@
 
 # Phage Activation Project
+![Main Page](main_page.jpg)
 
 ## Overview
 This project involves genomic analysis for phage activation. It includes scripts to analyze genome sequences using tools like MEME, Needle, and BLASTP.
