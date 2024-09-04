@@ -110,5 +110,5 @@ python phage_design.py -gbk_path <path_to_gbk_file> -output_dir <output_director
 ```
 ## Example
 ```sh
-python phage_design.py -gbk_path test_data/KX897981.gbk -output_dir test_data/
+python phage_design.py -gbk_path test_data/KX897981.fasta -output_dir test_data/
 ```
