@@ -106,7 +106,7 @@ sudo cp cd-hit-est /usr/local/bin
 To run the phage activation analysis, use the following command:
 
 ```sh
-python phage_design.py -gbk_path <path_to_gbk_file> -output_dir <output_directory>
+python phage_design.py -fasta_path <path_to_fasta_file> -output_dir <output_directory>
 ```
 ## Example
 ```sh
