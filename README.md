@@ -12,7 +12,7 @@ To create a new Python environment named `Phage_design` and install the necessar
 
 ```sh
 # Create a new conda environment
-conda create -n Phage_design python=3.9
+conda create -n Phage_design -y python=3.9
 
 # Activate the environment
 conda activate Phage_design
