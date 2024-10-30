@@ -114,7 +114,6 @@ python phage_design.py -gbk_path test_data/KX897981.fasta -output_dir test_data/
 ```
 ---
 
----
 
 # Part 2: Ongoing Work
 
@@ -124,6 +123,6 @@ MegaDNA is a long-context language model designed for decoding and generating ba
 
 Currently, we are expanding MegaDNA’s capabilities to predict interactions between bases, aiming to improve the accuracy of identifying potential transcription factor binding sites (TFBS). This research combines MegaDNA's model with long-range dependencies between bases to discover new and promising regulatory sites.
 
-[Read the original publication](http://biorxiv.org/lookup/doi/10.1101/2023.12.18.572218)
+![Second Image](megaDNA.png)
 
-![Main Page](megaDNA.png)
+[Read the original publication](http://biorxiv.org/lookup/doi/10.1101/2023.12.18.572218)
