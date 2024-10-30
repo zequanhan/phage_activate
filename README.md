@@ -119,9 +119,9 @@ python phage_design.py -gbk_path test_data/KX897981.fasta -output_dir test_data/
 
 **megaDNA: A Long-Context Language Model for Deciphering and Generating Bacteriophage Genomes**
 
-MegaDNA is a long-context language model designed for decoding and generating bacteriophage genomes, pioneered by Shaobin. Inspired by the success of GPT models in natural language processing, MegaDNA has been optimized specifically for genomic data. Using a multiscale Transformer architecture, it is pre-trained on unannotated bacteriophage genomes and can identify essential genes, gene variant effects, regulatory element activity, and classify unannotated sequences.
+MegaDNA is a long-context language model designed for decoding and generating bacteriophage genomes, pioneered by **Shaobin**. Inspired by the success of GPT models in natural language processing, MegaDNA has been optimized specifically for genomic data. Using a multiscale Transformer architecture, it is pre-trained on unannotated bacteriophage genomes and can identify essential genes, gene variant effects, regulatory element activity, and classify unannotated sequences.
 
-Currently, we are expanding MegaDNA’s capabilities to predict interactions between bases, aiming to improve the accuracy of identifying potential transcription factor binding sites (TFBS). This research combines MegaDNA's model with long-range dependencies between bases to discover new and promising regulatory sites.
+Currently, we are expanding MegaDNA’s capabilities to predict interactions between bases, aiming to improve the accuracy of identifying potential TFBS. This research combines MegaDNA's model with long-range dependencies between bases to discover new and promising regulatory sites.
 
 ![Second Image](megaDNA.png)
 
