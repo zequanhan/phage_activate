@@ -124,5 +124,6 @@ MegaDNA is a long-context language model designed for decoding and generating ba
 Currently, we are expanding MegaDNA’s capabilities to predict interactions between bases, aiming to improve the accuracy of identifying potential TFBS. This research combines MegaDNA's model with long-range dependencies between bases to discover new and promising regulatory sites.
 
 ![Second Image](megaDNA.png)
+![Result Image](example.jpg)
 
 [Read the original publication](http://biorxiv.org/lookup/doi/10.1101/2023.12.18.572218)
