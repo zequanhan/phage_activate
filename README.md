@@ -126,4 +126,4 @@ Currently, we are expanding MegaDNA’s capabilities to predict interactions bet
 ![Second Image](megaDNA.png)
 ![Result Image](example.jpg)
 
-[Read the original publication](http://biorxiv.org/lookup/doi/10.1101/2023.12.18.572218)
+[Read the original publication](http://biorxiv.org/lookup/doi/10.1101/2023.12.18.572218](https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/39477977/](https://www.ncbi.nlm.nih.gov/pmc/articles/pmid/39477977/))
