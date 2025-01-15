@@ -328,8 +328,39 @@ class GenomeAnalyzer:
     #     df_promoters = pd.DataFrame(data)
     #     self.results[key] = df_promoters
 ## 启动子长度限制最少28
-    def extract_promoters(self, key, dp_prom_path="/home/hanzequan/DPProm/DPProm/"):
+    def extract_promoters(self, key):
+        # 获取当前脚本所在的目录
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+
+        # 构建 DPProm 目录的绝对路径
+        dp_prom_path = os.path.join(script_dir, "../DPProm")
+
+        # 将路径转换为绝对路径
+        dp_prom_path = os.path.abspath(dp_prom_path)
+        dp_prom_path = dp_prom_path+'/' ## 添加’/‘.2024.9.2
+        # 打印路径以进行调试（可选）
+        print(f"Using DPProm path: {dp_prom_path}")
+        if self.fasta_path.endswith(('.gbk', '.gb')):
+            print("FASTA file provided is in GenBank format. Converting to FASTA format...")
+            try:
+                # 设置输出 FASTA 文件路径
+                fasta_output_path = self.fasta_path.rsplit('.', 1)[0] + ".fasta"
+                
+                # 使用 Biopython 提取序列并保存为 FASTA 格式
+                with open(self.fasta_path, "r") as gbk_file, open(fasta_output_path, "w") as fasta_file:
+                    SeqIO.convert(gbk_file, "genbank", fasta_file, "fasta")
+                
+                # 更新 self.fasta_path 为新的 FASTA 文件路径
+                self.fasta_path = fasta_output_path
+                print(f"Converted and saved FASTA file to: {self.fasta_path}")
+            except Exception as e:
+                print(f"Error during conversion: {e}")
+                raise
+        # 调用 genome_predict 函数
+        print(self.gbk_path, self.fasta_path)
         seqs, headers = DPProm_main.genome_predict(dp_prom_path, self.gbk_path, self.fasta_path)
+       
+        # 其他代码保持不变
         data = []
         for i, header in enumerate(headers):
             parts = header.split()
@@ -424,7 +455,7 @@ class GenomeAnalyzer:
 
         # 构建新的路径
         query_fasta = os.path.join(parent_dir, 'blast_data', 'query_proteins.fasta')
-        db_path = os.path.join(parent_dir, 'blast_db', 'blast_db')
+        db_path = os.path.join(parent_dir, 'blast_db', 'combined_proteins_db')
         blast_output = os.path.join(parent_dir, 'blast_data', 'blast_results.tsv')
 
         sequence = self.extract_sequence(self.gbk_path, protein_names)
