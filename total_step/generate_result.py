@@ -31,6 +31,7 @@ def calculate_pwm_score(sequence, pwm):
         score += pwm[base][i]
     return score
 
+<<<<<<< HEAD
 def scan_sequence_for_regions_and_create_dataframe(full_sequence, window_size_35=6, window_size_10=6,
                                                    gap_range=(14, 20), weight_35=1.5, strand='+'):
     """扫描全序列的 -35 和 -10 区域，创建包含正向和反向链结果的 DataFrame。"""
@@ -90,16 +91,49 @@ def find_best_promoter_region(sequence, pwm_35, pwm_10, window_size_35, window_s
                               gap_range, strand, weight_35, is_reverse=False, seq_length=None):
     best_result = None
     best_total_score = float('-inf')
+=======
+def scan_sequence_for_regions_and_create_dataframe(full_sequence, window_size_35=6, window_size_10=6, gap_range=(14, 20), weight_35=1.5):
+    """Scan the full DNA sequence for -35 and -10 regions, and create a DataFrame for both forward and reverse strands."""
+    # 调用get_pwms获取PWM矩阵
+    pwm_35, pwm_10 = get_pwms()
+
+    # 正向链扫描
+    best_result_forward = find_best_promoter_region(full_sequence, pwm_35, pwm_10, window_size_35, window_size_10, gap_range, strand='+', weight_35=weight_35)
+
+    # 反向链扫描 (反向互补序列)
+    reverse_complement_seq = str(Seq(full_sequence).reverse_complement())
+    best_result_reverse = find_best_promoter_region(reverse_complement_seq, pwm_35, pwm_10, window_size_35, window_size_10, gap_range, strand='-', weight_35=weight_35)
+
+    # 比较正向链和反向链的得分，选择最高的结果
+    if best_result_forward["total score"] >= best_result_reverse["total score"]:
+        best_result = best_result_forward
+    else:
+        best_result = best_result_reverse
+
+    df = pd.DataFrame([best_result])
+    return df
+
+def find_best_promoter_region(sequence, pwm_35, pwm_10, window_size_35, window_size_10, gap_range, strand, weight_35):
+    best_35 = None
+    best_35_score = float('-inf')
+    best_35_start = None
+    best_result = None
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
 
     for i in range(len(sequence) - window_size_35 + 1):
         window_sequence_35 = sequence[i:i + window_size_35]
         score_35 = calculate_pwm_score(window_sequence_35, pwm_35)
 
+<<<<<<< HEAD
+=======
+        valid_10_found = False
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
         for gap in range(gap_range[0], gap_range[1] + 1):
             start_10 = i + window_size_35 + gap
             if start_10 + window_size_10 <= len(sequence):
                 window_sequence_10 = sequence[start_10:start_10 + window_size_10]
                 score_10 = calculate_pwm_score(window_sequence_10, pwm_10)
+<<<<<<< HEAD
 
                 # 使用权重调整 -35 区域的得分
                 total_score = score_35 * weight_35 + score_10
@@ -152,6 +186,39 @@ def find_best_promoter_region(sequence, pwm_35, pwm_10, window_size_35, window_s
         }
 
     return best_result
+=======
+                
+                # 使用权重调整-35区域的得分
+                total_score = round_score(score_35 * weight_35 + score_10)
+
+                if total_score > best_35_score:
+                    best_35_score = total_score
+                    best_result = {
+                        "-35 sequence": window_sequence_35,
+                        "-35 score": round_score(score_35),
+                        "start position -35": i,
+                        "end position -35": i + window_size_35,
+                        "-10 sequence": window_sequence_10,
+                        "-10 score": round_score(score_10),
+                        "start position -10": start_10,
+                        "end position -10": start_10 + window_size_10,
+                        "total score": total_score,
+                        "promoter strand": strand  # 添加链方向
+                    }
+
+    return best_result if best_result else {
+        "-35 sequence": None,
+        "-35 score": None,
+        "start position -35": None,
+        "end position -35": None,
+        "-10 sequence": None,
+        "-10 score": None,
+        "start position -10": None,
+        "end position -10": None,
+        "total score": float('-inf'),
+        "promoter strand": strand
+    }
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
 ####重新定义find_matching_regions函数，返回链的数据####
 def find_overlapping_region_relative(predicted_start, predicted_end, real_start, real_end):
     # 计算重叠区域的起始和结束位置（相对于基因组的绝对位置）
@@ -410,6 +477,7 @@ def apply_modifications_and_save_as_fasta(modifications, genbank_path, fasta_out
 def get_sequence_id_from_genbank(genbank_path):
     record = SeqIO.read(genbank_path, "genbank")
     return record.id
+<<<<<<< HEAD
 
 def extend_promoter_region(promoter_start, promoter_end, extension, genome_seq):
     """延长 Promoter 区域并提取延长后的序列"""
@@ -514,6 +582,12 @@ def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, 
     # 获取 pwm_35 和 pwm_10
     pwm_35, pwm_10 = get_pwms()
     
+=======
+def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, output_path, window_size_35=6, window_size_10=6, gap_range=(14, 20), weight_35=1.5, extension=10):
+    pwm_minus_df = calculate_pwm_minus(meme_results)
+    sequence_id = get_sequence_id_from_genbank(genbank_path)
+    
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
     # 读取基因组序列
     genome_record = SeqIO.read(genbank_path, "genbank")
     genome_seq = str(genome_record.seq)
@@ -548,16 +622,23 @@ def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, 
             if (predicted['start'] <= real['end']) and (predicted['end'] >= real['start']):
                 predicted_seq = predicted['sequence']
                 real_seq = real['sequence']
+<<<<<<< HEAD
                 strand = real['strand']  # 获取初始的 strand
                 print('predicted_seq, strand:', predicted_seq, strand)
                 matching_regions = find_matching_regions_with_relative_info(
                     predicted_seq, predicted['start'], predicted['end'],
                     real_seq, real['start'], real['end'], strand
                 )
+=======
+                strand = real['strand']
+
+                matching_regions = find_matching_regions_with_relative_info(predicted_seq, predicted['start'], predicted['end'], real_seq, real['start'], real['end'], strand)
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
                 
                 if matching_regions:
                     used_predicted_indices.add(predicted_index)
                     used_real_indices.add(real_index)
+<<<<<<< HEAD
     
                     promoter_start = predicted['start']
                     promoter_end = predicted['end']
@@ -576,6 +657,22 @@ def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, 
                         top_result = top_result.iloc[0]
                         best_promoter_region = (int(top_result['start position -35']), int(top_result['end position -35']),
                                                 int(top_result['start position -10']), int(top_result['end position -10']))
+=======
+
+                    promoter_start = predicted['start']
+                    promoter_end = predicted['end']
+                    promoter_positions.append((promoter_start, promoter_end))
+
+                    tfbs_positions = [(region[0], region[1], strand) for region in matching_regions]
+
+                    # 使用整合的函数扫描并找到最佳的-35和-10区域
+                    top_result = scan_sequence_for_regions_and_create_dataframe(predicted_seq, window_size_35, window_size_10, gap_range, weight_35)
+
+                    if not top_result.empty:
+                        top_result = top_result.iloc[0]
+                        best_promoter_region = (top_result['start position -35'], top_result['start position -35'] + window_size_35,
+                                                top_result['start position -10'], top_result['start position -10'] + window_size_10)
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
                         promoter_strand = top_result['promoter strand']  # 获取promoter strand信息
                         seq_35 = top_result['-35 sequence']  # 获取-35序列
                         seq_10 = top_result['-10 sequence']  # 获取-10序列
@@ -589,7 +686,10 @@ def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, 
                     key = (promoter_start, promoter_end)
                     modifications[key] = modified_seqs[0]
                     
+<<<<<<< HEAD
                     # 生成标记的序列，显示修改位置
+=======
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
                     marked_seq = generate_marked_sequence(predicted_seq, modified_seqs[0])                    
                     
                     promoter_count += 1  # 对每个找到的启动子递增计数器
@@ -627,6 +727,7 @@ def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, 
                             'Sequence': predicted_seq
                         })
 
+<<<<<<< HEAD
                     # **在此处调用绘图函数，传入 marked_seq**
                     plot_sequence_with_annotations(
                         predicted_seq=predicted_seq,
@@ -641,6 +742,8 @@ def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, 
                        # marked_seq=marked_seq  # 传入标记的序列
                     )
 
+=======
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
     # 将promoter信息转换为DataFrame
     promoter_info_df = pd.DataFrame(promoter_info_list)
 
@@ -658,5 +761,8 @@ def analyze_tfbs_modification(meme_results, df_promoters, pwm_df, genbank_path, 
     print(f"Change score results saved to {change_score_result_path}")
 
     return modifications, promoter_info_df
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a

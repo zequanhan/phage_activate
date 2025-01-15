@@ -339,6 +339,7 @@ class GenomeAnalyzer:
         dp_prom_path = os.path.abspath(dp_prom_path)
         dp_prom_path = dp_prom_path+'/' ## 添加’/‘.2024.9.2
         # 打印路径以进行调试（可选）
+<<<<<<< HEAD
         print(f"Using DPProm path: {dp_prom_path}")
         if self.fasta_path.endswith(('.gbk', '.gb')):
             print("FASTA file provided is in GenBank format. Converting to FASTA format...")
@@ -358,6 +359,11 @@ class GenomeAnalyzer:
                 raise
         # 调用 genome_predict 函数
         print(self.gbk_path, self.fasta_path)
+=======
+        #print(f"Using DPProm path: {dp_prom_path}")
+       
+        # 调用 genome_predict 函数
+>>>>>>> 03027939e00730d23a5515fb8f7fcf63b107702a
         seqs, headers = DPProm_main.genome_predict(dp_prom_path, self.gbk_path, self.fasta_path)
        
         # 其他代码保持不变
